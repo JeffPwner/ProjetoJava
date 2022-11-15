@@ -4,7 +4,7 @@ public class Assinante {
 	private String nome;
 	private int numero;
 	protected int numChamadas;
-	
+
 	public Assinante(long cpf, String nome, int numero, int numChamadas) {
 		super();
 		this.cpf = cpf;
@@ -21,7 +21,5 @@ public class Assinante {
 	public String toString() {
 		return "Assinante [cpf=" + cpf + ", nome=" + nome + ", numero=" + numero + ", numChamadas=" + numChamadas + "]";
 	}
-	
-	
-	
+
 }
