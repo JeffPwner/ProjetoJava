@@ -1,21 +1,27 @@
-//import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class Chamada {
-	private Date data;
-	private int duracao;
+	private GregorianCalendar data;
+	private Integer duracao;
 
-	public Chamada(Date data, int duracao) {
+	public Chamada(GregorianCalendar data, Integer duracao) {
 		super();
 		this.data = data;
 		this.duracao = duracao;
 	}
 
-	public Date getData() {
+	public GregorianCalendar getData() {
 		return data;
 	}
 
-	public int getDuracao() {
+	public Integer getDuracao() {
 		return duracao;
 	}
 
@@ -24,19 +30,39 @@ public class Chamada {
 		return "Chamada [data=" + data + ", duracao=" + duracao + "]";
 	}
 
-	
-	/* 
-	 * testing if it works properly
-	 *
-	public static void main(String[] args) {
-		
-		Calendar ca = Calendar.getInstance();
-		ca.set(1999, 1, 1);
-		Date d = ca.getTime();
-		Chamada c = new Chamada(d, 50);
-		System.out.println(c);
-		
+	@Override
+	public int hashCode() {
+		return Objects.hash(data, duracao);
 	}
-	*/
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Chamada other = (Chamada) obj;
+		return Objects.equals(data, other.data) && Objects.equals(duracao, other.duracao);
+	}
+
+	/*
+	 * public static void main(String[] args) { Calendar ca =
+	 * Calendar.getInstance(); ca.set(1999, 01, 01); GregorianCalendar d =
+	 * ca.getTime(); Chamada c = new Chamada(d, 50); Chamada c2 = new Chamada(d,
+	 * 50);
+	 * 
+	 * List<Chamada> chamadas = new ArrayList<>(); chamadas.add(c); chamadas.add(c);
+	 * 
+	 * Set cm = new HashSet();
+	 * 
+	 * cm.add(c); cm.add(c);
+	 * 
+	 * System.out.println(cm); System.out.println(); System.out.println(chamadas);
+	 * // System.out.println(c);
+	 * 
+	 * }
+	 */
+
 }

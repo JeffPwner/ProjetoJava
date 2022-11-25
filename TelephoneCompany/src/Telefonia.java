@@ -38,8 +38,7 @@ public class Telefonia {
                 System.out.println("Entre com número do assinante: ");
                 numero = input.nextInt();
 
-                PrePago novoAssinantePre = new PrePago(cpf, nome, numero, 0, 0 ,0);
-                
+                PrePago novoAssinantePre = new PrePago(cpf, nome, numero);
                 
                 prePagos[numPrePagos] = novoAssinantePre;
                 numPrePagos += 1;
@@ -63,7 +62,7 @@ public class Telefonia {
                 System.out.println("Entre com número do assinante: ");
                 numero = input.nextInt();
 
-                PosPago novoAssinantePos = new PosPago(cpf, nome, numero, 0, 0);
+                PosPago novoAssinantePos = new PosPago(cpf, nome, numero, 0);
                 posPagos[numPosPagos] = novoAssinantePos;
                 numPosPagos += 1;
                 System.out.println("Novo Assinante cadastrado: ");
@@ -124,6 +123,7 @@ public class Telefonia {
                 case 3:
                     System.out.println("Fazer chamada selecionado ");
                     System.out.println("METODO NÃO IMPLEMENTADO");
+                    //telefonia.fazerChamada
                     break;
 
                 case 4:
