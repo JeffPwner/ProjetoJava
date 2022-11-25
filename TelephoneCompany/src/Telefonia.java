@@ -38,8 +38,9 @@ public class Telefonia {
                 System.out.println("Entre com número do assinante: ");
                 numero = input.nextInt();
 
-                PrePago novoAssinantePre = new PrePago(cpf, nome, numero, 0, 0 ,0);
+                PrePago novoAssinantePre = new PrePago(cpf, nome, numero);
                 
+                //verifica que a informação está em prepago
                 
                 prePagos[numPrePagos] = novoAssinantePre;
                 numPrePagos += 1;
@@ -94,6 +95,33 @@ public class Telefonia {
     	}
     }
     
+    public void fazerChamada ( ) {
+    	long cpf;
+    	
+    	System.out.println("Por favor, indique seu tipo de assinante.");
+    	System.out.println("[1]: pré-pago | [2]: pós-pago");
+    	int tipoDeAssinatura = input.nextInt();
+    	
+    	switch(tipoDeAssinatura){
+        case 1:
+        	System.out.println("Cadastro de pré-pago selecionado ");
+        	System.out.println("Por favor, insira seu CPF");
+        	cpf = input.nextLong();
+        break;
+        	
+        case 2:
+        	System.out.println("Cadastro de pós-pago selecionado ");
+        	System.out.println("Por favor, insira seu CPF");
+        	cpf = input.nextLong();
+        	
+        break;
+    	}
+    	
+    
+    	
+    	
+    }
+    
     public static void main(String[] args){
         Scanner menu = new Scanner(System.in);
         System.out.println("Funcionou.");
@@ -123,7 +151,7 @@ public class Telefonia {
 
                 case 3:
                     System.out.println("Fazer chamada selecionado ");
-                    System.out.println("METODO NÃO IMPLEMENTADO");
+                    telefonia.fazerChamada(); //escolhe o tipo e recebe o cpf, pega o vetor prepagos, fazer um for prepago.cpf == cpf digitado, quando achar o cpf do prepago, vamos usar o assinante.fazerChamada. Public void fazerChamada lá em cima. metodo que chama o prépago.
                     break;
 
                 case 4:
