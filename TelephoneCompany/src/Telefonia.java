@@ -39,6 +39,8 @@ public class Telefonia {
                 numero = input.nextInt();
 
                 PrePago novoAssinantePre = new PrePago(cpf, nome, numero);
+
+		//verifica que a informação está em prepago
                 
                 prePagos[numPrePagos] = novoAssinantePre;
                 numPrePagos += 1;
@@ -125,6 +127,7 @@ public class Telefonia {
                     System.out.println("METODO NÃO IMPLEMENTADO");
                     //telefonia.fazerChamada
                     break;
+		    //escolhe o tipo e recebe o cpf, pega o vetor prepagos, fazer um for prepago.cpf == cpf digitado, quando achar o cpf do prepago, vamos usar o assinante.fazerChamada. Public void fazerChamada lá em cima. metodo que chama o prépago.
 
                 case 4:
                     System.out.println("Fazer recarga selecionado ");
