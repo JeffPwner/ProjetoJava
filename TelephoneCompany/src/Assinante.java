@@ -3,8 +3,8 @@ public class Assinante {
 	private long cpf;
 	private String nome;
 	private int numero;
-	protected Chamada[] chamadas = new Chamada[5];
-	protected int numChamadas = 0;
+	protected Chamada[] chamadas = new Chamada[5]; //declarando uma variavel chamada Chamadas do tipo lista de chamadas. O valor da variavel é um vetor chamada com o valor max 5
+	protected int numChamadas = 0; //quando cria o assinante ela tem 0
 
 	public Assinante(long cpf, String nome, int numero) {
 		this.cpf = cpf;
