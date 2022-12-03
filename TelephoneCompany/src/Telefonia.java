@@ -13,7 +13,7 @@ public class Telefonia {
 	public void cadastrarAssinante() {
 		long cpf;
 		String nome;
-		int numero;
+		long numero;
 
 		System.out.println("Bem-vindo. Para prosseguir, indique seu tipo de assinatura.");
 		System.out.println("Digite o número da opção desejada.");
@@ -30,13 +30,15 @@ public class Telefonia {
 			System.out.println("Cadastro de pré-pago selecionado ");
 			System.out.println("Entre com cpf do assinante: ");
 			cpf = input.nextLong();
-			input.nextLine();
 
+			input.nextLine();
 			System.out.println("Entre com nome do assinante: ");
 			nome = input.nextLine();
 
 			System.out.println("Entre com número do assinante: ");
-			numero = input.nextInt();
+			numero = input.nextLong(); // n esta aceitando mais que uma certa quantidade de caracteres, da o erro
+										// java.util.InputMismatchException no scanner (quando estava usando tipo int,
+										// quando mudamos para long, funcionou normalmente
 
 			PrePago novoAssinantePre = new PrePago(cpf, nome, numero);
 
@@ -58,8 +60,9 @@ public class Telefonia {
 			System.out.println("Entre com cpf do assinante: ");
 			cpf = input.nextLong();
 
+			input.nextLine();
 			System.out.println("Entre com nome do assinante: ");
-			nome = input.next();
+			nome = input.nextLine();
 
 			System.out.println("Entre com número do assinante: ");
 			numero = input.nextInt();
@@ -104,26 +107,18 @@ public class Telefonia {
 
 		System.out.println("Insira o seu CPF");
 		long cpf = input.nextLong();
-		
+
 		/*
-		switch (tipoDeAssinatura) {
-		case 1:
-			localizarPrePago(cpf);
-			break;
-		case 2:
+		 * switch (tipoDeAssinatura) { case 1: localizarPrePago(cpf); break; case 2:
+		 * localizarPosPago(cpf); break; default:
+		 * System.out.println("Tipo de assinatura inexistente."); break; }
+		 */
+
+		if (tipoAssinatura == 1) {
 			localizarPosPago(cpf);
-			break;
-		default:
-			System.out.println("Tipo de assinatura inexistente.");
-			break;
-		}
-		*/
-		
-		if(tipoAssinatura == 1) {
-			this.localizarPosPago(cpf);
-		}else if(tipoAssinatura == 2){
-			this.localizarPrePago(cpf);
-		}else {
+		} else if (tipoAssinatura == 2) {
+			localizarPrePago(cpf);
+		} else {
 			System.out.println("Tipo de assinatura inexistente.");
 		}
 
