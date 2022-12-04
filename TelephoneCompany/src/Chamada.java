@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,7 +28,9 @@ public class Chamada {
 
 	@Override
 	public String toString() {
-		return "Chamada [data=" + data + ", duracao=" + duracao + "]";
+		Date data = this.data.getTime();
+		String novaData = new SimpleDateFormat("dd/MM/yyyy").format(data);
+		return "data: " + novaData + ", " + this.duracao + " minutos de duração.";
 	}
 
 	@Override

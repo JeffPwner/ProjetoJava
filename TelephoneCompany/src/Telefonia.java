@@ -1,4 +1,3 @@
-
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -15,6 +14,7 @@ public class Telefonia {
 		long cpf;
 		String nome;
 		long numero;
+		GregorianCalendar data;
 
 		System.out.println("Bem-vindo. Para prosseguir, indique seu tipo de assinatura.");
 		System.out.println("Digite o número da opção desejada.");
@@ -40,7 +40,7 @@ public class Telefonia {
 			numero = input.nextLong(); // n esta aceitando mais que uma certa quantidade de caracteres, da o erro
 										// java.util.InputMismatchException no scanner (quando estava usando tipo int,
 										// quando mudamos para long, funcionou normalmente
-
+			
 			PrePago novoAssinantePre = new PrePago(cpf, nome, numero);
 
 			// verifica que a informação está em prepago
@@ -66,9 +66,9 @@ public class Telefonia {
 			nome = input.nextLine();
 
 			System.out.println("Entre com número do assinante: ");
-			numero = input.nextInt();
-
-			PosPago novoAssinantePos = new PosPago(cpf, nome, numero, 0);
+			numero = input.nextLong();
+			
+			PosPago novoAssinantePos = new PosPago(cpf, nome, numero);
 			posPagos[numPosPagos] = novoAssinantePos;
 			numPosPagos += 1;
 			System.out.println("Novo Assinante cadastrado: ");
@@ -142,8 +142,8 @@ public class Telefonia {
 	}
 
 	public PosPago localizarPosPago(long cpf) {
-		for (int i = 0; i < this.posPagos.length; i++) {
-			if (this.posPagos[i] != null && this.posPagos[i].getCpf() == cpf) {
+		for (int i = 0; i < this.numPosPagos; i++) {
+			if (this.posPagos[i].getCpf() == cpf) {
 				return this.posPagos[i];
 			}
 		}
@@ -151,12 +151,38 @@ public class Telefonia {
 	}
 
 	public PrePago localizarPrePago(long cpf) {
-		for (int i = 0; i > this.prePagos.length; i++) {
-			if (this.prePagos[i] != null && this.posPagos[i].getCpf() == cpf) {
+		for (int i = 0; i < this.numPrePagos; i++) {
+			if (this.prePagos[i].getCpf() == cpf) {
 				return this.prePagos[i];
 			}
 		}
 		return null;
+	}
+
+	public void imprimirFatura(int mes) {
+		if (this.numPosPagos == 0) {
+			System.out.println("Não tem assinantes PosPago.");
+		}
+		if (this.numPrePagos == 0) {
+			System.out.println("Não tem assinantes PrePago.");
+		}
+		for (int i = 0; i < this.numPosPagos; i++) {
+			if (this.posPagos[i].numChamadas > 0) {
+				this.posPagos[i].imprimirFatura(mes);
+			}else {
+				System.out.println("Assinantes PosPago: " + this.posPagos[i].toString());
+				System.out.println("Assinaturas: " + this.posPagos[i].assinatura);
+			}
+		}
+		
+		for (int i = 0; i < this.numPrePagos; i++) {
+			if (this.prePagos[i].numChamadas > 0) {
+				this.prePagos[i].imprimirFatura(mes);
+			}else {
+				System.out.println("Assinantes PrePago: " + this.prePagos[i].toString());
+				System.out.println("Assinaturas: " + this.prePagos[i].creditos);
+			}
+		}
 	}
 
 	public static void main(String[] args) {
@@ -164,13 +190,12 @@ public class Telefonia {
 		int tipoAssinatura;
 		long cpf;
 		GregorianCalendar data;
-		
-		
+
 		Scanner menu = new Scanner(System.in);
 		System.out.println("Funcionou.");
 		Telefonia telefonia = new Telefonia();
 		while (true) {
-			System.out.println("Bem-vindes ao sistema de telefonia!");
+			System.out.println("Bem-vindos ao sistema de telefonia!");
 			System.out.println("Digite o número da opção desejada.");
 			System.out.println("[1]: Cadastrar Assinante");
 			System.out.println("[2]: Listar Assinantes");
@@ -195,11 +220,11 @@ public class Telefonia {
 			case 3:
 				System.out.println("Fazer chamada selecionado ");
 				System.out.println("Selecione o tipo de assinatura: ");
-				System.out.println("[1]: pré-pago | [2]: pós-pago"); 
+				System.out.println("[1]: pré-pago | [2]: pós-pago");
 				tipoAssinatura = input.nextInt();
 				System.out.println("Digite seu CPF: ");
 				cpf = input.nextLong();
-				System.out.println("Digite seu número: ");
+				System.out.println("Digite o tempo de chamada: ");
 				int tempo = input.nextInt();
 				data = new GregorianCalendar();
 				telefonia.fazerChamada(tipoAssinatura, cpf, tempo, data);
@@ -216,7 +241,12 @@ public class Telefonia {
 
 			case 5:
 				System.out.println("Imprimir fatura selecionado ");
-				System.out.println("METODO NÃO IMPLEMENTADO");
+				System.out.println("Selecione o mês desejado digitando de 0 a 11");
+				int mes = input.nextInt();
+				if (mes >= 0 && mes <= 11) {
+					telefonia.imprimirFatura(mes);
+				}
+
 				break;
 
 			case 6:

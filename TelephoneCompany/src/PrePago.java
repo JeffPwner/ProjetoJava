@@ -1,36 +1,31 @@
-import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class PrePago extends Assinante {
 	private Recarga[] recargas = new Recarga[5];
-	private float creditos;
+	protected float creditos;
 	private int numRecargas = 0;
 
 	public PrePago(long cpf, String nome, long numero) {
 		super(cpf, nome, numero);
-		this.creditos = creditos;
 		this.numRecargas = numRecargas;
-		this.recargas = recargas; // instância
+		this.recargas = recargas;
 	}
 
 	// faz as duas verificações
-	public float fazerChamada(GregorianCalendar data, int duracao) {
+	public String fazerChamada(GregorianCalendar data, int duracao) {
 		if (this.numChamadas >= this.chamadas.length) {
-			System.out.println("Atenção, número máximo de chamadas atingido!");
-			return 0;
+			return "Atenção, número máximo de chamadas atingido!";
 		}
 		float custoChamada = duracao * 1.45f;
 		if (custoChamada > creditos) { // verificando se há crédito
-			System.out.println("Saldo insuficiente");
-			return 0; // conta, se o numero nao for maior que o tamanho do vetor chamadas (5)
+			return "Saldo insuficiente"; // conta, se o numero nao for maior que o tamanho do vetor chamadas (5)
 		}
 		Chamada novaChamada = new Chamada(data, duracao); // obj nova chamada do tipo chamada, atributoda data e duraçao
 		this.chamadas[this.numChamadas] = novaChamada; // chamando o vetor e atualizando o numero de chamadas e
 														// adicionando uma nova chamada em numchamadas. Vai adicionar no
 														// 0, dps 1, 2, etc
 		this.numChamadas++;
-		return 0; // quando o return esta na função ela encerra o processo
+		return "Chamada efetuada com sucesso.";
 	}
 
 	public void recarregar(GregorianCalendar data, float valor) {

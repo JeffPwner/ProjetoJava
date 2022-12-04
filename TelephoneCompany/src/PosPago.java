@@ -1,31 +1,44 @@
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class PosPago extends Assinante {
-	private float assinatura;
+	protected float assinatura;
 
-	public PosPago(long cpf, String nome, long numero, float assinatura) {
+	public PosPago(long cpf, String nome, long numero) {
 		super(cpf, nome, numero);
-		this.assinatura = assinatura;
+
 	}
 
-	public void fazerChamada(GregorianCalendar data, int duracao) {
-		this.assinatura = duracao * 1.04f;
-		// this.chamadas.add(new Chamada(data, duracao));
-
-		// if numChamadas > 0
-		this.chamadas[this.numChamadas - 1] = new Chamada(data, duracao);
-		this.numChamadas = this.numChamadas - 1;
-
-		System.out.println(this.numChamadas);
-	}
-
-	public void mostrarChamadas() {
-		for (int i = 0; i < 2; i++) {
-			System.out.println(this.chamadas[i]);
+	public String fazerChamada(GregorianCalendar data, int duracao) {
+		this.numChamadas++;
+		for(int i = 0; i < this.numChamadas; i++) {
+			if (this.chamadas[i] == null) { 
+				Chamada novaChamada = new Chamada(data, duracao);
+				this.chamadas[i] = novaChamada;
+				return "Chamada realizada com sucesso!";
+				}
 		}
+		
+		return "Chamada não pôde ser realizada...";
 	}
 	
+	public void imprimirFatura(int mes) {
+		float totalChamada = 0;
+		System.out.println("Dados do assinante: ");
+		System.out.println(this.toString());
+		for(int i = 0; i < this.chamadas.length; i++) {
+			if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) {
+				int tempo = this.chamadas[i].getDuracao();
+				float custoChamada = tempo * 1.04f;
+				totalChamada = totalChamada + custoChamada;
+				System.out.println(this.toString() + "\n" + this.chamadas[i].toString());
+			}else {
+				System.out.println("Não há chamadas realizadas até o momento neste mês.");
+			}
+		}
+		float custoTotal = this.assinatura + totalChamada;
+		System.out.println("Valor da fatura: " + custoTotal);
+		
+	}
 	/*
 	public static void main(String[] args) {
 
