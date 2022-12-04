@@ -1,4 +1,5 @@
 
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Telefonia {
@@ -98,29 +99,45 @@ public class Telefonia {
 		}
 	}
 
-	public void fazerChamada() {
-		System.out.println("Fazendo chamada...");
-
-		System.out.println("Selecione o tipo de assinatura: ");
-		System.out.println("[1]: pré-pago | [2]: pós-pago");
-		int tipoAssinatura = input.nextInt();
-
-		System.out.println("Insira o seu CPF");
-		long cpf = input.nextLong();
+	public void fazerChamada(int tipoAssinatura, long cpf, int tempo, GregorianCalendar data) {
+		if (tipoAssinatura == 1) {
+			if (this.localizarPrePago(cpf) != null) {
+				PrePago ligacao = this.localizarPrePago(cpf);
+				System.out.println(ligacao.fazerChamada(data, tempo));
+			} else {
+				System.out.println("Assinante não encontrado.");
+			}
+		} else if (tipoAssinatura == 2) {
+			if (this.localizarPosPago(cpf) != null) {
+				PosPago ligacao = this.localizarPosPago(cpf);
+				ligacao.fazerChamada(data, tempo);
+				System.out.println(ligacao.fazerChamada(data, tempo));
+			} else {
+				System.out.println("Assinante não encontrado.");
+			}
+		} else {
+			System.out.println("Opção inválida.");
+		}
 
 		/*
+		 * System.out.println("Fazendo chamada...");
+		 * 
+		 * System.out.println("Selecione o tipo de assinatura: ");
+		 * System.out.println("[1]: pré-pago | [2]: pós-pago"); int tipoAssinatura =
+		 * input.nextInt();
+		 * 
+		 * System.out.println("Insira o seu CPF"); long cpf = input.nextLong();
+		 * 
+		 * 
 		 * switch (tipoDeAssinatura) { case 1: localizarPrePago(cpf); break; case 2:
 		 * localizarPosPago(cpf); break; default:
 		 * System.out.println("Tipo de assinatura inexistente."); break; }
+		 * 
+		 * 
+		 * if (tipoAssinatura == 1) { localizarPosPago(cpf); } else if (tipoAssinatura
+		 * == 2) { localizarPrePago(cpf); } else {
+		 * System.out.println("Tipo de assinatura inexistente."); }
 		 */
-
-		if (tipoAssinatura == 1) {
-			localizarPosPago(cpf);
-		} else if (tipoAssinatura == 2) {
-			localizarPrePago(cpf);
-		} else {
-			System.out.println("Tipo de assinatura inexistente.");
-		}
 
 	}
 
@@ -143,6 +160,12 @@ public class Telefonia {
 	}
 
 	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		int tipoAssinatura;
+		long cpf;
+		GregorianCalendar data;
+		
+		
 		Scanner menu = new Scanner(System.in);
 		System.out.println("Funcionou.");
 		Telefonia telefonia = new Telefonia();
@@ -171,7 +194,15 @@ public class Telefonia {
 
 			case 3:
 				System.out.println("Fazer chamada selecionado ");
-				telefonia.fazerChamada(); // ainda testeando
+				System.out.println("Selecione o tipo de assinatura: ");
+				System.out.println("[1]: pré-pago | [2]: pós-pago"); 
+				tipoAssinatura = input.nextInt();
+				System.out.println("Digite seu CPF: ");
+				cpf = input.nextLong();
+				System.out.println("Digite seu número: ");
+				int tempo = input.nextInt();
+				data = new GregorianCalendar();
+				telefonia.fazerChamada(tipoAssinatura, cpf, tempo, data);
 				break;
 			// escolhe o tipo e recebe o cpf, pega o vetor prepagos, fazer um for
 			// prepago.cpf == cpf digitado, quando achar o cpf do prepago, vamos usar o
