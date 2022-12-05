@@ -28,16 +28,16 @@ public class PrePago extends Assinante {
 		return "Chamada efetuada com sucesso.";
 	}
 
-	public void recarregar(GregorianCalendar data, float valor) {
+	public void recarregar(GregorianCalendar data, float valorRecarga) {
 		if (numRecargas >= recargas.length) {
 			System.out.println("Atenção, número máximo de recargas atingida!");
 			return;
 		} // se passar, efetua a recarga
-		creditos = creditos + valor; // recarregando creditos e documentando recargas
-		Recarga novaRecarga = new Recarga(data, valor); // chamando o vetor e atualizando o numero de chamadas e
+		creditos = creditos + valorRecarga; // recarregando creditos e documentando recargas
+		Recarga novaRecarga = new Recarga(data, valorRecarga); // chamando o vetor e atualizando o numero de chamadas e
 														// adicionando uma nova chamada em numchamadas. Vai adicionar no
 														// 0, dps 1, 2, etc
-		recargas[numRecargas] = novaRecarga;
+		recargas[numRecargas] = novaRecarga; 
 		numRecargas++;
 		return;
 	}
