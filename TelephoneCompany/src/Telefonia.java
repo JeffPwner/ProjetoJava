@@ -180,7 +180,7 @@ public class Telefonia {
 				this.prePagos[i].imprimirFatura(mes);
 			}else {
 				System.out.println("Assinantes PrePago: " + this.prePagos[i].toString());
-				System.out.println("Assinaturas: " + this.prePagos[i].creditos);
+				System.out.println("Creditos: " + this.prePagos[i].creditos);
 			}
 		}
 	}
