@@ -28,16 +28,16 @@ public class PrePago extends Assinante {
 		return "Chamada efetuada com sucesso.";
 	}
 
-	public void recarregar(GregorianCalendar data, float valor) {
+	public void recarregar(GregorianCalendar data, float valorRecarga) {
 		if (numRecargas >= recargas.length) {
 			System.out.println("Atenção, número máximo de recargas atingida!");
 			return;
 		} // se passar, efetua a recarga
-		creditos = creditos + valor; // recarregando creditos e documentando recargas
-		Recarga novaRecarga = new Recarga(data, valor); // chamando o vetor e atualizando o numero de chamadas e
-														// adicionando uma nova chamada em numchamadas. Vai adicionar no
-														// 0, dps 1, 2, etc
-		recargas[numRecargas] = novaRecarga;
+		this.creditos = this.creditos + valorRecarga; // recarregando creditos e documentando recargas
+		Recarga novaRecarga = new Recarga(data, valorRecarga); // chamando o vetor e atualizando o numero de chamadas e
+		// adicionando uma nova chamada em numchamadas. Vai adicionar no
+		// 0, dps 1, 2, etc
+		this.recargas[numRecargas] = novaRecarga;
 		numRecargas++;
 		return;
 	}
@@ -48,29 +48,35 @@ public class PrePago extends Assinante {
 		System.out.println("Dados do assinante: ");
 		System.out.println(this.toString()); // converter em string ao retornar o valores
 		for (int i = 0; i < this.chamadas.length; i++) {
-			if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) { // inteirar todas as chamadas que
-																					// temos e verificar se o if
-				System.out.println(this.chamadas[i].toString()); // verificando cada chamada no vetor, se o mes =
-																	// chamada da fatura entra na linha 50 e print os
-																	// dados da chamada e mostra os dados do mes que
-																	// foram pedidos
-				int tempo = this.chamadas[i].getDuracao();
-				float custo = tempo * 1.45f;
-				totalChamada = totalChamada + custo;
-				System.out.println(this.toString() + "\n" + this.chamadas[i].toString());
-			} else {
-				System.out.println("Não há chamadas realizadas até o momento neste mês.");
+			if (this.chamadas[i] != null) {
+				if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) { // inteirar todas as chamadas que
+																						// temos e verificar se o if
+					System.out.println(this.chamadas[i].toString()); // verificando cada chamada no vetor, se o mes =
+																		// chamada da fatura entra na linha 50 e print
+																		// os
+																		// dados da chamada e mostra os dados do mes que
+																		// foram pedidos
+					int tempo = this.chamadas[i].getDuracao();
+					float custo = tempo * 1.45f;
+					totalChamada = totalChamada + custo;
+					System.out.println(this.toString() + "\n" + this.chamadas[i].toString());
+				} else {
+					System.out.println("Não há chamadas realizadas até o momento neste mês.");
+				}
 			}
 		}
 		for (int i = 0; i < this.chamadas.length; i++) {
-			if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) {
-				float valorRecarga = this.recargas[i].getValor();
-				totalRecarga = totalRecarga + valorRecarga;
-				System.out.println("Recarga: " + this.recargas[i].toString());
-			} else {
-				System.out.println("Não há recargas realizadas neste mês.");
+			if (this.recargas[i] != null) {
+				if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) {
+					float valorRecarga = this.recargas[i].getValor();
+					totalRecarga = totalRecarga + valorRecarga;
+					System.out.println("Recarga: " + this.recargas[i].toString());
+				} else {
+					System.out.println("Não há recargas realizadas neste mês.");
+				}
 			}
 		}
-		System.out.println("Total de chamadas: " + totalChamada + " , " + "Total de recarga: " + totalRecarga + " , " + "Créditos: " + creditos);
+		System.out.println("Total de chamadas: " + totalChamada + " , " + "Total de recarga: " + totalRecarga + " , "
+				+ "Créditos: " + this.creditos);
 	}
 }

@@ -158,6 +158,14 @@ public class Telefonia {
 		}
 		return null;
 	}
+	
+	public void fazerRecarga(long cpf, float valorRecarga, GregorianCalendar data) {
+		if(this.localizarPrePago(cpf) != null) {
+			System.out.println("Recarga concluída! Agora você tem R$" + valorRecarga + " 0 recarregado.");
+		} else {
+			System.out.println("não foi possível fazer a recarga! Por favor, tente novamente.");
+		}
+	}
 
 	public void imprimirFatura(int mes) {
 		if (this.numPosPagos == 0) {
@@ -236,7 +244,12 @@ public class Telefonia {
 
 			case 4:
 				System.out.println("Fazer recarga selecionado ");
-				System.out.println("METODO NÃO IMPLEMENTADO");
+				System.out.println("insira o seu cpf:");
+				cpf = input.nextLong();
+				System.out.println("Certo. Agora insira o valor da recarga que você deseja fazer:");
+				float valorRecarga = input.nextFloat();
+				data = new GregorianCalendar();
+				telefonia.fazerRecarga(cpf, valorRecarga, data);
 				break;
 
 			case 5:

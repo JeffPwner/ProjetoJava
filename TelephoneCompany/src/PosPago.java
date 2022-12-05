@@ -25,13 +25,15 @@ public class PosPago extends Assinante {
 		float totalChamada = 0;
 		System.out.println("Dados do assinante PosPago: ");
 		for(int i = 0; i < this.numChamadas; i++) {
-			if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) {
-				int tempo = this.chamadas[i].getDuracao();
-				float custoChamada = tempo * 1.04f;
-				totalChamada = totalChamada + custoChamada;
-				System.out.println(this.chamadas[i].toString());
-			}else {
-				System.out.println("Não há chamadas realizadas até o momento neste mês.");
+			if(this.chamadas[i] != null) {
+				if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) {
+					int tempo = this.chamadas[i].getDuracao();
+					float custoChamada = tempo * 1.04f;
+					totalChamada = totalChamada + custoChamada;
+					System.out.println(this.toString() + "\n" + this.chamadas[i].toString());
+				}else {
+					System.out.println("Não há chamadas realizadas até o momento neste mês.");
+				}
 			}
 		}
 		float custoTotal = this.assinatura + totalChamada;
