@@ -40,7 +40,7 @@ public class Telefonia {
 			numero = input.nextLong(); // n esta aceitando mais que uma certa quantidade de caracteres, da o erro
 										// java.util.InputMismatchException no scanner (quando estava usando tipo int,
 										// quando mudamos para long, funcionou normalmente
-			
+
 			PrePago novoAssinantePre = new PrePago(cpf, nome, numero);
 
 			// verifica que a informação está em prepago
@@ -67,7 +67,7 @@ public class Telefonia {
 
 			System.out.println("Entre com número do assinante: ");
 			numero = input.nextLong();
-			
+
 			PosPago novoAssinantePos = new PosPago(cpf, nome, numero);
 			posPagos[numPosPagos] = novoAssinantePos;
 			numPosPagos += 1;
@@ -158,10 +158,12 @@ public class Telefonia {
 		}
 		return null;
 	}
-	
+
 	public void fazerRecarga(long cpf, float valorRecarga, GregorianCalendar data) {
-		if(this.localizarPrePago(cpf) != null) {
-			System.out.println("Recarga concluída! Agora você tem R$" + valorRecarga + " 0 recarregado.");
+		if (this.localizarPrePago(cpf) != null) {
+			PrePago recar = this.localizarPrePago(cpf);
+			recar.recarregar(data, valorRecarga);
+			System.out.println("R$" + valorRecarga + " recarregado.");
 		} else {
 			System.out.println("não foi possível fazer a recarga! Por favor, tente novamente.");
 		}
@@ -177,16 +179,16 @@ public class Telefonia {
 		for (int i = 0; i < this.numPosPagos; i++) {
 			if (this.posPagos[i].numChamadas > 0) {
 				this.posPagos[i].imprimirFatura(mes);
-			}else {
+			} else {
 				System.out.println("Assinantes PosPago: " + this.posPagos[i].toString());
 				System.out.println("Assinaturas: " + this.posPagos[i].assinatura);
 			}
 		}
-		
+
 		for (int i = 0; i < this.numPrePagos; i++) {
 			if (this.prePagos[i].numChamadas > 0) {
 				this.prePagos[i].imprimirFatura(mes);
-			}else {
+			} else {
 				System.out.println("Assinantes PrePago: " + this.prePagos[i].toString());
 				System.out.println("Creditos: " + this.prePagos[i].creditos);
 			}
